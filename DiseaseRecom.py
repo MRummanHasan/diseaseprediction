@@ -19,11 +19,12 @@ import io
 inputVal = "S1" 
 # list = [disease, symptom1, symptom2....]
 list = [["D1","S1","S2","S3"],
-        ["D2","S1","S2","S3"],
-        ["D3","S1","S2","S3"]]
+        ["D2","S1","S4","S5"],
+        ["D3","S1","S2","S5"]]
 highestPer = 0
 val = 0
-thisDoctor = "General"
+thisDisease = "General"
+percentArr = []
 for i in range(2):
     for j in range(3):
         if inputVal in list[i][j]:
@@ -34,12 +35,20 @@ for i in range(2):
         
         if (per > highestPer):
             highestPercent = per
-            thisDoctor = list[i][0]
+            # thisDisease = list[i][0]
         else:
             continue
+    
+    percentArr.append(per)
+
+percentArr.sort()
+mostSuitableDoctor = percentArr[percentArr.__len__()-1]
 
 
 print(inputVal)
 print(highestPer)
 print(per)
-print(thisDoctor)
+print(thisDisease)
+
+print(percentArr)
+print(mostSuitableDoctor)
