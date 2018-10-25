@@ -1,4 +1,5 @@
 import io
+import pymysql
 
 # data from DB(bridge table);
 # populate that data in List of Array;
@@ -16,15 +17,57 @@ import io
 # print(objects)
 # [disese, s1, s2]
 
-inputVal = "S1" 
+# fetch data from junction table
+# connection work
+conn = pymysql.connect(host='localhost', user='root', password='', db='HealthSystem')
+a = conn.cursor()
+# end connection work
+# Query
+
+# sql = 'SELECT D.*, S.* FROM diseases D JOIN disease_symptoms_bridgetable DC ON D.disease_id = DC.disease_id JOIN symptoms S ON S.symptom_id = DC.symptom_id'
+sql = 'SELECT D.disease_name, S.symptom_name FROM diseases D INNER JOIN disease_symptoms_bridgetable DC ON D.disease_id = DC.disease_id INNER JOIN symptoms S ON S.symptom_id = DC.symptom_id'
+      # GROUP BY D.disease_name'
+
+# 'SELECT D.disease_name, S.symptom_name FROM diseases D '
+#     INNER JOIN disease_symptoms_bridgetable DC
+#         ON D.disease_id = DC.disease_id
+#     INNER JOIN symptoms S
+#         ON S.symptom_id = DC.symptom_id'
+a.execute(sql)
+data = a.fetchall()
+print(data)
+print()
+
+# wordcount={}
+for d in data:
+
+#     for word in d:
+#         if word not in wordcount:
+#             wordcount[word] = 1
+#         else:
+#             wordcount[word] += 1
+#     print (word,wordcount)
+
+    wordcount = {}
+    for word in d:
+        if word not in wordcount:
+            wordcount[word] = 1
+        else:
+            wordcount[word] += 1
+    for key in wordcount.keys():
+        print("%s %s " % (key, wordcount[key]))
+
+
+inputVal = "fever"
 # list = [disease, symptom1, symptom2....]
-list = [["D1","S1","S2","S3"],
+list = [["D1","fever","S2","S3"],
         ["D2","S1","S4","S5"],
         ["D3","S1","S2","S5"]]
 highestPer = 0
 val = 0
 thisDisease = "General"
 percentArr = []
+per = 0
 for i in range(2):
     for j in range(3):
         if inputVal in list[i][j]:
@@ -33,16 +76,22 @@ for i in range(2):
         else:
             continue
         
-        if (per > highestPer):
-            highestPercent = per
-            # thisDisease = list[i][0]
-        else:
-            continue
+    if (per > highestPer):
+        highestPercent = per
+    else:
+        continue
     
     percentArr.append(per)
 
 percentArr.sort()
-mostSuitableDoctor = percentArr[percentArr.__len__()-1]
+
+highestPerValueFound = max(percentArr)
+mostSuitableDisease = percentArr.index(highestPerValueFound)
+
+# doctor ka table 
+
+
+
 
 
 print(inputVal)
@@ -51,4 +100,4 @@ print(per)
 print(thisDisease)
 
 print(percentArr)
-print(mostSuitableDoctor)
+print(mostSuitableDisease)
