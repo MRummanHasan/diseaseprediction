@@ -60,7 +60,7 @@ print()
 inputValueArr = ['fever','weakness','other']
 ## list = [disease, symptom1, symptom2....]
 list = [['Influenza', 'cough', 'headache', 'sore throat'],
-        ['FoodPoisoning', 'weakness', 'fever','sore throat'],
+        ['FoodPoisoning', 'weakness', 'fever','sore throat','other'],
         ['Food Poisoning', 'W', 'fever']]
 
 highestPer = 0
@@ -73,37 +73,36 @@ inputVal = 0
 # for inp in inputValueArr:
 #     inputVal = inp
 #     print(inputVal)
-for i in range(2):
-    # for inputVal in inputValueArr:
-    #     print(inputVal)
-    if inputValueArr[0] in list[i]:
-        val = val + 1
-        print(val," val")
+for i in range(3):
+    for inputVal in inputValueArr:
+        # print(inputVal)
+        if inputVal in list[i]:
+            val = val + 1
+    print(val, "finalval")
+    # if inputValueArr[0] in list[i]:
+    #     val = val + 1
         # per=float(val)*(100/10) # divide by avg#OfDisease; Make function for that
-    elif inputValueArr[1] in list[i]:
-        val = val + 1
-    elif inputValueArr[0] in list[i]:
-        val = val + 1
+    # if inputValueArr[1] in list[i]:
+    #     val = val + 1
+    # if inputValueArr[2] in list[i]:
+    #     val = val + 1
 
-    if (val > highestPer): # per > highestPer
-        highestPercent = val
-    else:
-        continue
+    # if (val > highestPer): # per > highestPer
+    #     highestPercent = val
     percentArr.append(val)
+    val = 0
 
-percentArr.sort()
-
+# percentArr.sort()
 highestPerValueFound = max(percentArr)
 mostSuitableDisease = percentArr.index(highestPerValueFound)
 
 # # doctor ka table
 # doctor, disease1,d2,d3
-doctorDisease = [['Doc1','Influenza','d2','d3'],
-                 ['Doc2','Food Poisoning','d4','d5'],
-                 ['Doc3','d1','d2','d5']]
+doctorDisease = [['Dr Sattar','Influenza','d2','d3'],
+                 ['Dr Fahad','Food Poisoning','d4','d5'],
+                 ['Dr Maaz','d1','d2','d5']]
 
-print("inputval ",inputVal)
-print("highest ",highestPer)
+print("inputval ",inputValueArr)
 print("val ",val)
 print("percentArr ",percentArr)
 
