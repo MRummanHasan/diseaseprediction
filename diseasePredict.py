@@ -4,31 +4,30 @@ import pymysql
 # data from DB(bridge table);
 # populate that data in List of Array;
 # check most match with symptoms;
-# Match it to doctor profile
-# display doctor
 
 ## fetch data from junction table
 ## connection work
-conn = pymysql.connect(host='localhost', user='root', password='', db='HealthSystem')
-a = conn.cursor()
+# conn = pymysql.connect(host='localhost', user='root', password='', db='HealthSystem')
+# a = conn.cursor()
 ##end connection work
+inputValueArr = ['fever','weakness','headache'] # input by patient
+
 ## Query
 # sql = 'SELECT D.disease_name, S.symptom_name FROM diseases AS D JOIN disease_symptoms_bridgetable AS DC ON D.disease_id = DC.disease_id JOIN symptoms AS S ON S.symptom_id = DC.symptom_id'
 # a.execute(sql)
 # data = a.fetchall()
-# print(data)
-data = (('Influenza', 'fever'), ('Influenza', 'cough'), ('Influenza', 'headache'), ('Influenza', 'sore throat'), ('FoodPoisoning', 'vomiting'), ('FoodPoisoning', 'weakness'), ('FoodPoisoning', 'fever'), ('Food Poisoning', 'V'), ('Food Poisoning', 'W'), ('Food Poisoning', 'F'))
-print()
-# OR
-inputValueArr = ['fever','weakness','headache'] # input by patient
-
+# data = (('Influenza', 'fever'), ('Influenza', 'cough'), ('Influenza', 'headache'), ('Influenza', 'sore throat'), ('FoodPoisoning', 'vomiting'), ('FoodPoisoning', 'weakness'), ('FoodPoisoning', 'fever'), ('Food Poisoning', 'V'), ('Food Poisoning', 'W'), ('Food Poisoning', 'F'))
+        ####### OR #######
 ## list = [disease, symptom1, symptom2....]
 list = [['Influenza', 'cough', 'headache', 'sore throat'],
-        ['FoodPoisoning', 'weakness', 'fever','sore throat','headache'],
-        ['Cancer', 'W', 'fever']]
+        ['Food Poisoning', 'weakness', 'fever','sore throat','headache'],
+        ['eating or weight problems', 'W', 'fever']
+        ['lung problems','cough with blood','shortness of breath']
+        ['skin problems','redness of face','moles on skin']
+        ['Diarrhea','watery stool','vomiting','abdominal cramps','belly pain']]
 
 val = 0
-thisdoctor = "General"
+thisdisease = ""
 percentArr = []
 inputVal = 0
 
@@ -40,15 +39,9 @@ for i in range(3):
     percentArr.append(val)
     val = 0
 
-# percentArr.sort()
 highestPerValueFound = max(percentArr)
-mostSuitableDisease = percentArr.index(highestPerValueFound)
+mostSuitableDiseasecount = percentArr.index(highestPerValueFound)
 
-# # Data fetch from doctor table
-# doctor, disease1,disease2,disease3
-doctorDisease = [['Dr Sattar','Influenza','d2','d3'],
-                 ['Dr Fahad','Food Poisoning','d4','d5'],
-                 ['Dr Maaz','d1','d2','d5']]
-thisdoctor = doctorDisease[mostSuitableDisease][0]
-print("inputval ",inputValueArr)
-print("\n",thisdoctor)
+thisdisease = list[mostSuitableDiseasecount][0]
+print("Symptoms by user: ",inputValueArr)
+print("\nYou might be suffering from: ",thisdisease)
